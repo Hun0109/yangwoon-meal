@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양운고 급식 봇 | Yangwoon Meal Bot</title>
+  <meta name="description" content="부산 양운고등학교 실시간 급식 메뉴, 알레르기 안심 안내, 영양 분석 및 스마트 급식 봇">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-blur blur-1"></div>
+  <div class="bg-blur blur-2"></div>
+
+  <div class="app-wrapper">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="school-badge">🏫 양운고등학교</div>
+        <h1 class="app-title">양운급식 <span class="highlight">BOT</span></h1>
+      </div>
+      <div class="header-tools">
+        <button id="openBotBtn" class="header-bot-btn" title="양운 급식봇과 대화하기">🤖 급식봇 대화</button>
+        <span id="liveTime" class="live-time">00:00:00</span>
+        <button id="themeToggle" class="icon-btn" title="다크/라이트 테마 변경">🌙</button>
+      </div>
+    </header>
+
+    <!-- Countdown Banner Card -->
+    <section class="banner-card">
+      <div class="banner-content">
+        <div class="status-chip" id="mealStatusChip">🍚 점심시간 카운트다운</div>
+        <h2 id="countdownText" class="banner-timer">불러오는 중...</h2>
+        <p id="countdownSub" class="banner-sub">양운고의 맛있는 급식이 준비되고 있어요!</p>
+      </div>
+      <div class="banner-emoji" id="bannerEmoji">🍱</div>
+    </section>
+
+    <!-- Date Navigation Bar -->
+    <nav class="date-nav-card">
+      <div class="quick-dates">
+        <button class="date-btn" data-offset="-1">어제</button>
+        <button class="date-btn active" data-offset="0">오늘</button>
+        <button class="date-btn" data-offset="1">내일</button>
+      </div>
+      <div class="custom-date-picker">
+        <input type="date" id="datePicker">
+        <span class="calendar-icon">📅</span>
+      </div>
+    </nav>
+
+    <!-- Allergy Filter Section -->
+    <section class="allergy-section">
+      <div class="section-header">
+        <h3 class="section-title">🛡️ 알레르기 안심 필터</h3>
+        <span class="section-subtitle">선택 시 해당 식재료 메뉴 강조 경고</span>
+      </div>
+      <div class="allergy-chips" id="allergyChips">
+        <!-- Allergy chips generated via JS -->
+      </div>
+    </section>
+
+    <!-- Meal Cards Container -->
+    <main class="meal-cards-container" id="mealContainer">
+      <!-- Skeleton Loading State -->
+      <div class="meal-card skeleton-card">
+        <div class="skeleton-line title"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line"></div>
+      </div>
+    </main>
+
+    <!-- Weekly View Section -->
+    <section class="weekly-section">
+      <h3 class="section-title">📅 이번 주 전체 식단표</h3>
+      <div class="weekly-grid" id="weeklyGrid">
+        <!-- Weekly mini cards generated via JS -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>데이터 출처: 교육부 나이스(NEIS) 오픈 API (부산 양운고등학교 7150115)</p>
+      <p>© 2026 부산 양운고등학교 급식 봇 | Designed for Yangwoon Students</p>
+    </footer>
+  </div>
+
+  <!-- Floating Chatbot Launcher -->
+  <button id="botLauncher" class="bot-floating-launcher" title="양운 급식봇 열기">
+    <span>🤖</span>
+    <span>급식봇 대화</span>
+  </button>
+
+  <!-- Chatbot Modal & Window -->
+  <div id="botModalOverlay" class="bot-modal-overlay"></div>
+  <aside id="botChatWindow" class="bot-chat-window" aria-label="양운 급식 봇 대화창">
+    <div class="bot-window-header">
+      <div class="bot-profile">
+        <div class="bot-avatar-badge">🤖</div>
+        <div>
+          <div class="bot-title-text">양운 급식봇 <span class="bot-online-indicator"></span></div>
+          <div class="bot-sub-text">부산 양운고등학교 AI 급식 비서</div>
+        </div>
+      </div>
+      <button id="closeBotBtn" class="bot-close-btn" title="닫기" aria-label="대화창 닫기">✕</button>
+    </div>
+    
+    <div id="botMessagesArea" class="bot-messages-area">
+      <!-- Messages rendered by JS -->
+    </div>
+
+    <form id="botInputForm" class="bot-input-bar">
+      <input type="text" id="botTextInput" class="bot-text-input" placeholder="급식 질문 (예: 오늘 점심, 내일 특식, 칼로리...)" autocomplete="off">
+      <button type="submit" class="bot-send-btn" title="전송" aria-label="메시지 전송">➤</button>
+    </form>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/neis.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
